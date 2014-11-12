@@ -3,6 +3,7 @@
 
 #include <QFileDialog>
 #include <QGraphicsItemGroup>
+#include <QSerialPortInfo>
 #include <QThread>
 #include <QDebug>
 
@@ -19,6 +20,18 @@ MainWindow::MainWindow(QWidget *parent) :
   _scene = new PcbGraphicsScene(this);
   //  _scene->setSceneRect(0,0,13000,13000);
   ui->gvPcb->setScene(_scene);
+
+  // serial interface
+  foreach (const QSerialPortInfo &ports, QSerialPortInfo::availablePorts())
+     ui->cbInterface->addItem(ports.portName());
+  if(ui->cbInterface->count() > 0)
+    ui->cbInterface->setCurrentIndex(ui->cbInterface->count()-1);
+  connect(ui->cbInterface, SIGNAL(currentTextChanged(QString)), &_laserExposer, SLOT(setInterface(QString)));
+
+  ui->cbBaud->setCurrentText("115200");
+  connect(ui->cbBaud, SIGNAL(currentTextChanged(QString)), &_laserExposer, SLOT(setBaud(QString)));
+
+  connect(&_laserExposer, SIGNAL(portStateChanged(bool)), this, SLOT(on_portStateChange(bool)));
 }
 
 /////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////8
@@ -508,6 +521,12 @@ void MainWindow::on_actionPlay_triggered()
 
   qDebug() << "pcb done";
 
+}
+
+/////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////8
+void MainWindow::on_portStateChange(bool state)
+{
+  ui->statusBar->showMessage(state ? "port opened" : "port closed", 2000);
 }
 
 /////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////8

@@ -10,6 +10,12 @@
     <height>672</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>640</width>
+    <height>480</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
@@ -20,7 +26,7 @@
       <item>
        <widget class="QTabWidget" name="tabWidget">
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="tabPcb">
          <attribute name="title">
@@ -40,12 +46,30 @@
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <property name="minimumSize">
+               <size>
+                <width>100</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>200</width>
+                <height>16777215</height>
+               </size>
+              </property>
              </widget>
             </item>
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_2">
               <item>
                <widget class="QPushButton" name="btnSelAll">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="text">
                  <string>all</string>
                 </property>
@@ -53,6 +77,12 @@
               </item>
               <item>
                <widget class="QPushButton" name="btnSelNone">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="text">
                  <string>none</string>
                 </property>
@@ -68,113 +98,351 @@
          <attribute name="title">
           <string>settings</string>
          </attribute>
-         <widget class="QGroupBox" name="groupBox_2">
-          <property name="geometry">
-           <rect>
-            <x>130</x>
-            <y>200</y>
-            <width>701</width>
-            <height>341</height>
-           </rect>
-          </property>
-          <property name="title">
-           <string>machine setting</string>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_4">
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <widget class="QGroupBox" name="groupBox_2">
+            <property name="title">
+             <string>machine setting</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_4">
              <item>
-              <layout class="QVBoxLayout" name="verticalLayout_6">
+              <layout class="QHBoxLayout" name="horizontalLayout_4">
                <item>
-                <widget class="QGroupBox" name="groupBox_3">
+                <layout class="QVBoxLayout" name="verticalLayout_6">
+                 <item>
+                  <widget class="QGroupBox" name="groupBox_3">
+                   <property name="title">
+                    <string>communication</string>
+                   </property>
+                   <layout class="QFormLayout" name="formLayout_5">
+                    <property name="fieldGrowthPolicy">
+                     <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+                    </property>
+                    <item row="0" column="0">
+                     <widget class="QLabel" name="lblInterface">
+                      <property name="text">
+                       <string>interface</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="1">
+                     <widget class="QComboBox" name="cbInterface"/>
+                    </item>
+                    <item row="1" column="0">
+                     <widget class="QLabel" name="lblBaud">
+                      <property name="text">
+                       <string>baudrate</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="1">
+                     <widget class="QComboBox" name="cbBaud">
+                      <item>
+                       <property name="text">
+                        <string>9600</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>19200</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>38400</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>57600</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>115200</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QGroupBox" name="groupBox">
+                   <property name="title">
+                    <string>laser</string>
+                   </property>
+                   <layout class="QFormLayout" name="formLayout_4">
+                    <property name="fieldGrowthPolicy">
+                     <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+                    </property>
+                    <item row="0" column="0">
+                     <widget class="QLabel" name="lblLaserPower">
+                      <property name="text">
+                       <string>laser power [%]</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="1">
+                     <widget class="QSpinBox" name="sbLaserPower"/>
+                    </item>
+                    <item row="1" column="0">
+                     <widget class="QLabel" name="lblLaserSpeed">
+                      <property name="text">
+                       <string>speed with laser</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="1">
+                     <widget class="QDoubleSpinBox" name="dsbLaserSpeed"/>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <widget class="QGroupBox" name="gbMotSetX">
                  <property name="title">
-                  <string>communication</string>
+                  <string>motor x axis</string>
                  </property>
-                 <layout class="QFormLayout" name="formLayout_5">
+                 <layout class="QFormLayout" name="formLayout_2">
                   <property name="fieldGrowthPolicy">
                    <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
                   </property>
                   <item row="0" column="0">
-                   <widget class="QLabel" name="lblInterface">
+                   <widget class="QLabel" name="lblMinPosX">
                     <property name="text">
-                     <string>interface</string>
+                     <string>min position [mm]</string>
                     </property>
                    </widget>
                   </item>
                   <item row="0" column="1">
-                   <widget class="QComboBox" name="cbInterface"/>
+                   <widget class="QDoubleSpinBox" name="dsbMinPosX"/>
                   </item>
                   <item row="1" column="0">
-                   <widget class="QLabel" name="lblBaud">
+                   <widget class="QLabel" name="lblMaxPosX">
                     <property name="text">
-                     <string>baudrate</string>
+                     <string>max position [mm]</string>
                     </property>
                    </widget>
                   </item>
                   <item row="1" column="1">
-                   <widget class="QComboBox" name="cbBaud"/>
+                   <widget class="QDoubleSpinBox" name="dsbMaxPosX"/>
                   </item>
                   <item row="2" column="0">
-                   <widget class="QLabel" name="lblDataBits">
+                   <widget class="QLabel" name="lblRefPosX">
                     <property name="text">
-                     <string>data bits</string>
+                     <string>reference position [mm]</string>
                     </property>
                    </widget>
                   </item>
                   <item row="2" column="1">
-                   <widget class="QSpinBox" name="sbDataBits"/>
+                   <widget class="QDoubleSpinBox" name="dsbRefPosX"/>
                   </item>
                   <item row="3" column="0">
-                   <widget class="QLabel" name="lblStopBits">
+                   <widget class="QLabel" name="lblSpeedX">
                     <property name="text">
-                     <string>stop bits</string>
+                     <string>speed [mm/min]</string>
                     </property>
                    </widget>
                   </item>
                   <item row="3" column="1">
-                   <widget class="QSpinBox" name="sbStopBits"/>
+                   <widget class="QDoubleSpinBox" name="dsbSpeedX"/>
                   </item>
                   <item row="4" column="0">
-                   <widget class="QLabel" name="lblParity">
+                   <widget class="QLabel" name="lblAccX">
                     <property name="text">
-                     <string>parity</string>
+                     <string>acceleration [mm²/min]</string>
                     </property>
                    </widget>
                   </item>
                   <item row="4" column="1">
-                   <widget class="QSpinBox" name="spParity"/>
+                   <widget class="QDoubleSpinBox" name="dsbAccX"/>
+                  </item>
+                  <item row="5" column="0">
+                   <widget class="QLabel" name="lblDecX">
+                    <property name="text">
+                     <string>deceleration [mm²/min]</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="5" column="1">
+                   <widget class="QDoubleSpinBox" name="dsbDecX"/>
+                  </item>
+                  <item row="6" column="0">
+                   <widget class="QLabel" name="lblStepsPerTurnX">
+                    <property name="text">
+                     <string>steps per turn</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="6" column="1">
+                   <widget class="QComboBox" name="cbStepsPerTurnX">
+                    <item>
+                     <property name="text">
+                      <string>200</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>400</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>800</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>1600</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>3200</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>6400</string>
+                     </property>
+                    </item>
+                   </widget>
+                  </item>
+                  <item row="7" column="0">
+                   <widget class="QLabel" name="lblDistPerTurnX">
+                    <property name="text">
+                     <string>distance per turn [mm]</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="7" column="1">
+                   <widget class="QDoubleSpinBox" name="dsbDistPerTurnX"/>
                   </item>
                  </layout>
                 </widget>
                </item>
                <item>
-                <widget class="QGroupBox" name="groupBox">
+                <widget class="QGroupBox" name="gbMotSetY">
                  <property name="title">
-                  <string>laser</string>
+                  <string>motor y axis</string>
                  </property>
-                 <layout class="QFormLayout" name="formLayout_4">
+                 <layout class="QFormLayout" name="formLayout_3">
                   <property name="fieldGrowthPolicy">
                    <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
                   </property>
-                  <item row="0" column="0">
-                   <widget class="QLabel" name="lblLaserPower">
+                  <item row="2" column="0">
+                   <widget class="QLabel" name="lblRefPosY">
                     <property name="text">
-                     <string>laser power [%]</string>
+                     <string>reference position [mm]</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="1">
+                   <widget class="QDoubleSpinBox" name="dsbRefPosY"/>
+                  </item>
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="lblMinPosY">
+                    <property name="text">
+                     <string>min position [mm]</string>
                     </property>
                    </widget>
                   </item>
                   <item row="0" column="1">
-                   <widget class="QSpinBox" name="sbLaserPower"/>
+                   <widget class="QDoubleSpinBox" name="dsbMinPosY"/>
                   </item>
                   <item row="1" column="0">
-                   <widget class="QLabel" name="lblLaserSpeed">
+                   <widget class="QLabel" name="lblMaxPosY">
                     <property name="text">
-                     <string>speed with laser</string>
+                     <string>max position [mm]</string>
                     </property>
                    </widget>
                   </item>
                   <item row="1" column="1">
-                   <widget class="QDoubleSpinBox" name="dsbLaserSpeed"/>
+                   <widget class="QDoubleSpinBox" name="dsbMaxPosY"/>
+                  </item>
+                  <item row="3" column="0">
+                   <widget class="QLabel" name="lblSpeedY">
+                    <property name="text">
+                     <string>speed [mm/min]</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="1">
+                   <widget class="QDoubleSpinBox" name="dsbSpeedY"/>
+                  </item>
+                  <item row="4" column="0">
+                   <widget class="QLabel" name="lblAccY">
+                    <property name="text">
+                     <string>acceleration [mm²/min]</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="1">
+                   <widget class="QDoubleSpinBox" name="dsbAccY"/>
+                  </item>
+                  <item row="5" column="0">
+                   <widget class="QLabel" name="lblDecY">
+                    <property name="text">
+                     <string>deceleration [mm²/min]</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="5" column="1">
+                   <widget class="QDoubleSpinBox" name="dsbDecY"/>
+                  </item>
+                  <item row="6" column="0">
+                   <widget class="QLabel" name="lblStepsPerTurnY">
+                    <property name="text">
+                     <string>steps per turn</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="6" column="1">
+                   <widget class="QComboBox" name="cbStepsPerTurnY">
+                    <item>
+                     <property name="text">
+                      <string>400</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>800</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>1600</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>3200</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>6400</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>12800</string>
+                     </property>
+                    </item>
+                   </widget>
+                  </item>
+                  <item row="7" column="0">
+                   <widget class="QLabel" name="lblDistPerTurnY">
+                    <property name="text">
+                     <string>distance per turn [mm]</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="7" column="1">
+                   <widget class="QDoubleSpinBox" name="dsbDistPerTurnY"/>
                   </item>
                  </layout>
                 </widget>
@@ -182,330 +450,84 @@
               </layout>
              </item>
              <item>
-              <widget class="QGroupBox" name="gbMotSetX">
-               <property name="title">
-                <string>motor x axis</string>
-               </property>
-               <layout class="QFormLayout" name="formLayout_2">
-                <property name="fieldGrowthPolicy">
-                 <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
-                </property>
-                <item row="0" column="0">
-                 <widget class="QLabel" name="lblMinPosX">
-                  <property name="text">
-                   <string>min position [mm]</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="1">
-                 <widget class="QDoubleSpinBox" name="dsbMinPosX"/>
-                </item>
-                <item row="1" column="0">
-                 <widget class="QLabel" name="lblMaxPosX">
-                  <property name="text">
-                   <string>max position [mm]</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="1">
-                 <widget class="QDoubleSpinBox" name="dsbMaxPosX"/>
-                </item>
-                <item row="2" column="0">
-                 <widget class="QLabel" name="lblRefPosX">
-                  <property name="text">
-                   <string>reference position [mm]</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="1">
-                 <widget class="QDoubleSpinBox" name="dsbRefPosX"/>
-                </item>
-                <item row="3" column="0">
-                 <widget class="QLabel" name="lblSpeedX">
-                  <property name="text">
-                   <string>speed [mm/min]</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="1">
-                 <widget class="QDoubleSpinBox" name="dsbSpeedX"/>
-                </item>
-                <item row="4" column="0">
-                 <widget class="QLabel" name="lblAccX">
-                  <property name="text">
-                   <string>acceleration [mm²/min]</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="1">
-                 <widget class="QDoubleSpinBox" name="dsbAccX"/>
-                </item>
-                <item row="5" column="0">
-                 <widget class="QLabel" name="lblDecX">
-                  <property name="text">
-                   <string>deceleration [mm²/min]</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="5" column="1">
-                 <widget class="QDoubleSpinBox" name="dsbDecX"/>
-                </item>
-                <item row="6" column="0">
-                 <widget class="QLabel" name="lblStepsPerTurnX">
-                  <property name="text">
-                   <string>steps per turn</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="6" column="1">
-                 <widget class="QComboBox" name="cbStepsPerTurnX">
-                  <item>
-                   <property name="text">
-                    <string>200</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>400</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>800</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>1600</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>3200</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>6400</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
-                <item row="7" column="0">
-                 <widget class="QLabel" name="lblDistPerTurnX">
-                  <property name="text">
-                   <string>distance per turn [mm]</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="7" column="1">
-                 <widget class="QDoubleSpinBox" name="dsbDistPerTurnX"/>
-                </item>
-               </layout>
-              </widget>
+              <layout class="QHBoxLayout" name="horizontalLayout_5">
+               <item>
+                <widget class="QPushButton" name="btnReadSettings">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>read</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../res/icons.qrc">
+                   <normaloff>:/icons/menu/upload</normaloff>:/icons/menu/upload</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>32</width>
+                   <height>32</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="btnSendSettings">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>50</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>write</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../res/icons.qrc">
+                   <normaloff>:/icons/menu/download</normaloff>:/icons/menu/download</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>32</width>
+                   <height>32</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </item>
              <item>
-              <widget class="QGroupBox" name="gbMotSetY">
-               <property name="title">
-                <string>motor y axis</string>
+              <spacer name="verticalSpacer">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
                </property>
-               <layout class="QFormLayout" name="formLayout_3">
-                <property name="fieldGrowthPolicy">
-                 <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
-                </property>
-                <item row="2" column="0">
-                 <widget class="QLabel" name="lblRefPosY">
-                  <property name="text">
-                   <string>reference position [mm]</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="1">
-                 <widget class="QDoubleSpinBox" name="dsbRefPosY"/>
-                </item>
-                <item row="0" column="0">
-                 <widget class="QLabel" name="lblMinPosY">
-                  <property name="text">
-                   <string>min position [mm]</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="1">
-                 <widget class="QDoubleSpinBox" name="dsbMinPosY"/>
-                </item>
-                <item row="1" column="0">
-                 <widget class="QLabel" name="lblMaxPosY">
-                  <property name="text">
-                   <string>max position [mm]</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="1">
-                 <widget class="QDoubleSpinBox" name="dsbMaxPosY"/>
-                </item>
-                <item row="3" column="0">
-                 <widget class="QLabel" name="lblSpeedY">
-                  <property name="text">
-                   <string>speed [mm/min]</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="1">
-                 <widget class="QDoubleSpinBox" name="dsbSpeedY"/>
-                </item>
-                <item row="4" column="0">
-                 <widget class="QLabel" name="lblAccY">
-                  <property name="text">
-                   <string>acceleration [mm²/min]</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="1">
-                 <widget class="QDoubleSpinBox" name="dsbAccY"/>
-                </item>
-                <item row="5" column="0">
-                 <widget class="QLabel" name="lblDecY">
-                  <property name="text">
-                   <string>deceleration [mm²/min]</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="5" column="1">
-                 <widget class="QDoubleSpinBox" name="dsbDecY"/>
-                </item>
-                <item row="6" column="0">
-                 <widget class="QLabel" name="lblStepsPerTurnY">
-                  <property name="text">
-                   <string>steps per turn</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="6" column="1">
-                 <widget class="QComboBox" name="cbStepsPerTurnY">
-                  <item>
-                   <property name="text">
-                    <string>400</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>800</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>1600</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>3200</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>6400</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>12800</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
-                <item row="7" column="0">
-                 <widget class="QLabel" name="lblDistPerTurnY">
-                  <property name="text">
-                   <string>distance per turn [mm]</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="7" column="1">
-                 <widget class="QDoubleSpinBox" name="dsbDistPerTurnY"/>
-                </item>
-               </layout>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_5">
-             <item>
-              <widget class="QPushButton" name="btnReadSettings">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>read</string>
-               </property>
-               <property name="icon">
-                <iconset resource="../res/icons.qrc">
-                 <normaloff>:/icons/menu/upload</normaloff>:/icons/menu/upload</iconset>
-               </property>
-               <property name="iconSize">
+               <property name="sizeHint" stdset="0">
                 <size>
-                 <width>32</width>
-                 <height>32</height>
+                 <width>20</width>
+                 <height>40</height>
                 </size>
                </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="btnSendSettings">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>write</string>
-               </property>
-               <property name="icon">
-                <iconset resource="../res/icons.qrc">
-                 <normaloff>:/icons/menu/download</normaloff>:/icons/menu/download</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>32</width>
-                 <height>32</height>
-                </size>
-               </property>
-              </widget>
+              </spacer>
              </item>
             </layout>
-           </item>
-          </layout>
-         </widget>
-         <widget class="QSlider" name="horizontalSlider">
-          <property name="geometry">
-           <rect>
-            <x>190</x>
-            <y>40</y>
-            <width>501</width>
-            <height>81</height>
-           </rect>
-          </property>
-          <property name="singleStep">
-           <number>0</number>
-          </property>
-          <property name="pageStep">
-           <number>10</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="invertedAppearance">
-           <bool>false</bool>
-          </property>
-          <property name="invertedControls">
-           <bool>false</bool>
-          </property>
-         </widget>
+           </widget>
+          </item>
+         </layout>
         </widget>
         <widget class="QWidget" name="tabTesting">
          <attribute name="title">

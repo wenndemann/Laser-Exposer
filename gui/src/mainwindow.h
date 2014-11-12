@@ -23,28 +23,18 @@ public:
 
 private slots:
     void on_listWidget_itemChanged(QListWidgetItem *item);
-
     void on_btnSelAll_clicked();
-
     void on_btnSelNone_clicked();
-
     void on_actionOpen_triggered();
-
     void on_actionClose_triggered();
-
     void on_btnRefX_clicked();
-
     void on_btnRefY_clicked();
-
     void on_btnEnable_clicked();
-
     void on_btnDisable_clicked();
-
     void on_btnMoveX_clicked();
-
     void on_btnMoveY_clicked();
-
     void on_actionPlay_triggered();
+    void on_portStateChange(bool state);
 
 private:
     Ui::MainWindow *ui;

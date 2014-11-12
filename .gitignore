@@ -42,5 +42,5 @@ gui/bin
 *.uvproj
 *_timing.html
 *.cydsn/codegentemp
-*.cydsn/DP8051
+*.cydsn/CortexM0
 *.cydsn/Generated_Source
