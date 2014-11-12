@@ -24,9 +24,23 @@ Makefile*
 *-build-*
 
 # QtCreator
-
+gui/bin
 *.autosave
 
 #QtCtreator Qml
 *.qmlproject.user
 *.qmlproject.user.*
+
+#PSoC Files
+.DS_Store
+*.cywrk.*
+*.cyprj.*
+*.cycdx
+*.cyfit
+*.rpt
+*.uvopt
+*.uvproj
+*_timing.html
+*.cydsn/codegentemp
+*.cydsn/DP8051
+*.cydsn/Generated_Source

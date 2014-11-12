@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/icons/menu">
+        <file alias="close">icons/cross.svg</file>
+        <file alias="pause">icons/pause.svg</file>
+        <file alias="play">icons/play.svg</file>
+        <file alias="stop">icons/stop.svg</file>
+        <file alias="download">icons/downloading.svg</file>
+        <file alias="open">icons/open.svg</file>
+        <file alias="upload">icons/upload.svg</file>
+    </qresource>
+</RCC>
