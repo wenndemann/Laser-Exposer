@@ -31,16 +31,3 @@ gui/bin
 *.qmlproject.user
 *.qmlproject.user.*
 
-#PSoC Files
-.DS_Store
-*.cywrk.*
-*.cyprj.*
-*.cycdx
-*.cyfit
-*.rpt
-*.uvopt
-*.uvproj
-*_timing.html
-*.cydsn/codegentemp
-*.cydsn/CortexM0
-*.cydsn/Generated_Source

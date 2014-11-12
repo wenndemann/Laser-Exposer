@@ -1,0 +1,16 @@
+#PSoC Files
+.DS_Store
+*.cywrk.*
+*.cywrk
+*.cydwr
+*.cyprj.*
+*.cycdx
+*.cyfit
+*.rpt
+*.uvopt
+*.uvproj
+*.svd
+*_timing.html
+codegentemp/
+CortexM0/
+Generated_Source/
