@@ -128,7 +128,7 @@ int main ()
             steps *= -1;
           while(UART_SpiUartGetRxBufferSize() < byte)
             CyDelayUs(1);
-          speed_cntr_Move(steps, 50000, 50000, 100, &srd_Y);
+          speed_cntr_Move(steps, 50000, 50000, 750, &srd_Y);
           while(srd_Y.run_state != STOP)
             CyDelay(1);    
           srd_Y.laser = FALSE;
