@@ -437,8 +437,8 @@ void MainWindow::on_actionPlay_triggered()
   _scene->clearSelection();                                                  // Selections would also render to the file
   _scene->setSceneRect(_scene->itemsBoundingRect());                          // Re-shrink the scene to it's bounding contents
   QSize size(_scene->sceneRect().size().toSize());
-  size.setHeight(size.height() / 1000.0 * 25.4 / 1 * 42.6666666);
-  size.setWidth(size.width() / 1000.0 * 25.4 / 75 * 3200);
+//  size.setHeight(size.height() / 1000.0 * 25.4 / 1 * 42.6666666);
+//  size.setWidth(size.width() / 1000.0 * 25.4 / 75 * 3200);
   size.setWidth(size.width() + (8 - (size.width()%8)));
   QImage img(size, QImage::Format_ARGB32);  // Create the image with the exact size of the shrunk scene
   img.fill(Qt::transparent);                                              // Start all pixels transparent
