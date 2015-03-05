@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 #include "global.h"
+#include "laser.h"
 #include "speed_cntr.h"
 #include "serial.h"
 
@@ -40,7 +41,7 @@ int main() {
   UART_Start();
   PWM_Laser_Start();
   CyGlobalIntEnable; // Enable global interrupts
-
+  LED_Write(0);
   xoff = FALSE;
 
   Motor_X_M0_Write(0);
@@ -109,16 +110,23 @@ int main() {
             steps *= -1;
           while (UART_SpiUartGetRxBufferSize() < byte)
             CyDelayUs(1);
+            
+          speed_cntr_Move(steps, srd_Y.acc, srd_Y.dec, srd_Y.speed, &srd_Y);
+          while (srd_Y.run_state != STOP)
+            CyDelay(1);  
+            
           srd_Y.laser = FALSE;
           done();
         } break;
 
       case CMD_READ_SETTINGS: // read settings from PC
         getData();
+        done();
         break;
 
       case CMD_WRITE_SETTINGS: // write settings to PC
         sendData();
+        done();
         break;
 
       default:
@@ -144,11 +152,11 @@ void ref_x(void) {
   CyDelay(10);
   srd_X.run_state = STOP;
 
-  speed_cntr_Move(50000, srd_X.acc, srd_X.dec, srd_X.speed / 10, &srd_X);
+  speed_cntr_Move(50000, srd_X.acc, srd_X.dec, srd_X.speed / 10.0, &srd_X);
   while (Ref_X_Read() == 1);
   srd_X.run_state = STOP;
 
-  srd_X.act_pos = srd_X.refPos / srd_X.distPerTurn * srd_X.stepsPerTurn;
+  srd_X.act_pos = (double)srd_X.refPos / (double)srd_X.distPerTurn * (double)srd_X.stepsPerTurn;
   speed_cntr_Move_Abs(0, srd_X.acc, srd_X.dec, srd_X.speed, &srd_X);
   while (srd_X.run_state != STOP)
     CyDelay(1);
@@ -158,16 +166,16 @@ void ref_x(void) {
 void ref_y(void) {
   enable(EN_ON);
 
-  speed_cntr_Move(-40000, srd_Y.acc, srd_Y.dec, srd_Y.speed, &srd_Y);
+  speed_cntr_Move(-40000, srd_Y.acc, srd_Y.dec, srd_Y.speed / 5.0, &srd_Y);
   while (Ref_Y_Read() == 0);
   CyDelay(10);
   srd_Y.run_state = STOP;
 
-  speed_cntr_Move(1000, srd_Y.acc, srd_Y.dec, srd_Y.speed / 10, &srd_Y);
+  speed_cntr_Move(1000, srd_Y.acc, srd_Y.dec, srd_Y.speed / 50.0, &srd_Y);
   while (Ref_Y_Read() == 1);
   srd_Y.run_state = STOP;
 
-  srd_Y.act_pos = srd_Y.refPos / srd_Y.distPerTurn * srd_Y.stepsPerTurn;
+  srd_Y.act_pos = (double)srd_Y.refPos / (double)srd_Y.distPerTurn * (double)srd_Y.stepsPerTurn;
   speed_cntr_Move_Abs(0, srd_Y.acc, srd_Y.dec, srd_X.speed, &srd_Y);
   while (srd_Y.run_state != STOP)
     CyDelay(1);
@@ -182,7 +190,7 @@ void enable(int val) {
 /////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////8
 void getData() {
   ld.power = readUINT8();
-  ls.speed = readUINT32();
+  ld.speed = readUINT32();
 
   srd_X.minPos = readINT32();
   srd_X.maxPos = readINT32();
@@ -205,8 +213,9 @@ void getData() {
 
 /////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////8
 void sendData() {
-  writeUINT8(ls.power);
-  writeUINT32(ls.speed);
+  UART_UartPutChar('p');
+  writeUINT8(ld.power);
+  writeUINT32(ld.speed);
 
   writeINT32(srd_X.minPos);
   writeINT32(srd_X.maxPos);

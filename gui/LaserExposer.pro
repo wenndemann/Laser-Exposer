@@ -43,7 +43,8 @@ HEADERS  += src/pcb/layer.h \
     src/pcb/via.h \
     src/pcb/wire.h \
     src/exposerhardware.h \
-    src/mainwindow.h
+    src/mainwindow.h \
+    src/sendbuffer.h
 
 FORMS    += src/mainwindow.ui
 

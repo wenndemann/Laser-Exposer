@@ -14,7 +14,7 @@ void speed_cntr_Move(int32 step, uint32 accel, uint32 decel,
   unsigned int max_s_lim;
   unsigned int accel_lim;
 
-  float ALPHA = (2 * 3.14159 / srd->spr); // 2*pi/spr
+  float ALPHA = (2 * 3.14159 / srd->stepsPerTurn); // 2*pi/stepsPerTurn
   long A_T_x100 = ((long)(ALPHA * T1_FREQ * 100)); // (ALPHA / T1_FREQ)*100
   int T1_FREQ_148 = ((int)((T1_FREQ * 0.676) / 100));
   // divided by 100 and scaled by 0.676
@@ -178,7 +178,7 @@ void speed_cntr_Init_Timer() {
   srd_X.act_pos = 0;
   srd_X.laser = FALSE;
   srd_X.run_state = STOP;
-  srd_X.spr = 3200;
+  srd_X.stepsPerTurn = 3200;
   srd_X.Motor_Dir_Write = &Motor_X_Dir_Write;
   srd_X.Motor_Step_Write = &Motor_X_Step_Write;
   srd_X.Timer_Start = &Timer_X_Start;
@@ -191,7 +191,7 @@ void speed_cntr_Init_Timer() {
   srd_Y.act_pos = 0;
   srd_X.laser = FALSE;
   srd_Y.run_state = STOP;
-  srd_Y.spr = 3200;
+  srd_Y.stepsPerTurn = 3200;
   srd_Y.Motor_Dir_Write = &Motor_Y_Dir_Write;
   srd_Y.Motor_Step_Write = &Motor_Y_Step_Write;
   srd_Y.Timer_Start = &Timer_Y_Start;

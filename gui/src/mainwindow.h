@@ -21,6 +21,9 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+public slots:
+  void on_paramChange();
+
 private slots:
     void on_listWidget_itemChanged(QListWidgetItem *item);
     void on_btnSelAll_clicked();
@@ -35,6 +38,7 @@ private slots:
     void on_btnMoveY_clicked();
     void on_actionPlay_triggered();
     void on_portStateChange(bool state);
+    void on_btnReadSettings_clicked();
 
 private:
     Ui::MainWindow *ui;

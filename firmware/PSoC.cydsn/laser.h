@@ -3,10 +3,10 @@
 
 #include "project.h"
 
-struct laserData {
+typedef struct {
   uint8 power;
   uint32 speed;
-};
+} laserData;
 
 void setLaserByUart();
 void resetLaser(void);

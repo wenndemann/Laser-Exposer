@@ -33,19 +33,19 @@ uint32 readUINT32() {
 
 /////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////8
 void writeUINT8(uint8 val) {
-  UART_UartPutByte(val);
+  UART_UartPutChar(val);
 }
 
 /////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////8
 void writeINT32(int32 val) {
   unsigned int i;
   for (i = 0; i < 4; i++)
-    UART_UartPutByte((uint8)(val >> (i*8)));
+    UART_UartPutChar((uint8)(val >> (i*8)));
 }
 
 /////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////8
 void writeUINT32(uint32 val) {
   unsigned int i;
   for (i = 0; i < 4; i++)
-    UART_UartPutByte((uint8)(val >> (i*8)));
+    UART_UartPutChar((uint8)(val >> (i*8)));
 }

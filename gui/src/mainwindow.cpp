@@ -24,12 +24,12 @@ MainWindow::MainWindow(QWidget *parent) :
   // serial interface
   foreach (const QSerialPortInfo &ports, QSerialPortInfo::availablePorts())
      ui->cbInterface->addItem(ports.portName());
+  connect(ui->cbInterface, SIGNAL(currentTextChanged(QString)), &_laserExposer, SLOT(setInterface(QString)));
   if(ui->cbInterface->count() > 0)
     ui->cbInterface->setCurrentIndex(ui->cbInterface->count()-1);
-  connect(ui->cbInterface, SIGNAL(currentTextChanged(QString)), &_laserExposer, SLOT(setInterface(QString)));
 
-  ui->cbBaud->setCurrentText("115200");
   connect(ui->cbBaud, SIGNAL(currentTextChanged(QString)), &_laserExposer, SLOT(setBaud(QString)));
+  ui->cbBaud->setCurrentText("115200");
 
   connect(&_laserExposer, SIGNAL(portStateChanged(bool)), this, SLOT(on_portStateChange(bool)));
 }
@@ -456,7 +456,22 @@ void MainWindow::on_actionPlay_triggered()
   rect->setPen(pen);
   _scene->addItem(rect);
 
-
+  _laserExposer.enable(true);
+  for(int i = 0; i < 10; i++)
+    {
+      QApplication::processEvents();
+      QThread::msleep(100);
+    }
+  _laserExposer.referenceAxis(ExposerHardware::Axis::Y);
+  while(_laserExposer.isMoving()){
+      QApplication::processEvents();
+      QThread::msleep(100);
+    }
+  _laserExposer.referenceAxis(ExposerHardware::Axis::X);
+  while(_laserExposer.isMoving()){
+      QApplication::processEvents();
+      QThread::msleep(100);
+    }
   _laserExposer.moveTo(ExposerHardware::Axis::X, 0);
   while(_laserExposer.isMoving()){
       QApplication::processEvents();
@@ -532,13 +547,13 @@ void MainWindow::on_portStateChange(bool state)
 /////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////8
 void MainWindow::on_btnRefX_clicked()
 {
-  _laserExposer.referendeAxis(ExposerHardware::Axis::X);
+  _laserExposer.referenceAxis(ExposerHardware::Axis::X);
 }
 
 /////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////8
 void MainWindow::on_btnRefY_clicked()
 {
-  _laserExposer.referendeAxis(ExposerHardware::Axis::Y);
+  _laserExposer.referenceAxis(ExposerHardware::Axis::Y);
 }
 
 /////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////8
@@ -563,4 +578,38 @@ void MainWindow::on_btnMoveX_clicked()
 void MainWindow::on_btnMoveY_clicked()
 {
   _laserExposer.moveTo(ExposerHardware::Axis::Y, (quint32) (ui->sbY->value()/75.0*3200.0));
+}
+
+/////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////8
+void MainWindow::on_paramChange()
+{
+  ExposerParameter ep;
+  ep.laserPower = ui->sbLaserPower->value();
+  ep.laserSpeed = ui->sbLaserSpeed->value();
+
+  ep.xMinPos = ui->sbMinPosX->value();
+  ep.xMaxPos = ui->sbMaxPosX->value();
+  ep.xRefPos = ui->sbRefPosX->value();
+  ep.xSpeed = ui->sbSpeedX->value();
+  ep.xAcc = ui->sbAccX->value();
+  ep.xDec = ui->sbDecX->value();
+  ep.xStepsPerTurn = ui->cbStepsPerTurnX->currentText().toInt();
+  ep.xDistPerTurn = ui->sbDistPerTurnX->value();
+
+  ep.yMinPos = ui->sbMinPosY->value();
+  ep.yMaxPos = ui->sbMaxPosY->value();
+  ep.yRefPos = ui->sbRefPosY->value();
+  ep.ySpeed = ui->sbSpeedY->value();
+  ep.yAcc = ui->sbAccY->value();
+  ep.yDec = ui->sbDecY->value();
+  ep.yStepsPerTurn = ui->cbStepsPerTurnY->currentText().toInt();
+  ep.yDistPerTurn = ui->sbDistPerTurnY->value();
+
+  _laserExposer.setParam(ep);
+}
+
+/////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////8
+void MainWindow::on_btnReadSettings_clicked()
+{
+  _laserExposer.requestParam();
 }
